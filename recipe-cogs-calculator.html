@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Recipe COGS Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & base ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-page:        #F5F4F0;
+      --bg-card:        #FFFFFF;
+      --bg-input:       #FFFFFF;
+      --bg-muted:       #EFEFEB;
+      --bg-success:     #EAF3DE;
+      --bg-info:        #E6F1FB;
+      --bg-amber:       #FAEEDA;
+      --bg-danger:      #FCEBEB;
+
+      --text-primary:   #1A1A18;
+      --text-secondary: #6B6A65;
+      --text-success:   #3B6D11;
+      --text-info:      #0C447C;
+      --text-amber:     #854F0B;
+      --text-danger:    #A32D2D;
+
+      --border:         #DDDCD6;
+      --border-strong:  #B4B2A9;
+      --accent:         #1A1A18;
+
+      --radius-sm:      6px;
+      --radius-md:      10px;
+      --radius-lg:      14px;
+
+      --font-body:      'DM Sans', system-ui, sans-serif;
+      --font-mono:      'DM Mono', monospace;
+    }
+
+    html, body {
+      font-family: var(--font-body);
+      background: var(--bg-page);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.5;
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ── App shell ────────────────────────────────── */
+    .app {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 0 100px;
+      min-height: 100vh;
+    }
+
+    /* ── Header ───────────────────────────────────── */
+    .app-header {
+      padding: 20px 16px 12px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-page);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .app-header h1 {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .app-header p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* ── Tab bar ──────────────────────────────────── */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-page);
+      position: sticky;
+      top: 68px;
+      z-index: 9;
+    }
+    .tab {
+      flex: 1;
+      padding: 12px 8px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab.active {
+      color: var(--text-primary);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ── Panel ────────────────────────────────────── */
+    .panel { display: none; padding: 16px; }
+    .panel.active { display: block; }
+
+    /* ── Section labels ───────────────────────────── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+    .section-label:first-child { margin-top: 0; }
+
+    /* ── Cards ────────────────────────────────────── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    /* ── Form elements ────────────────────────────── */
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    .field:last-child { margin-bottom: 0; }
+    .field label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    input[type="text"],
+    input[type="number"],
+    select {
+      font-family: var(--font-body);
+      font-size: 15px;
+      padding: 11px 12px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--border-strong);
+      box-shadow: 0 0 0 3px rgba(26,26,24,0.08);
+    }
+    input::placeholder { color: var(--text-secondary); opacity: 0.6; }
+
+    /* ── Buttons ──────────────────────────────────── */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 13px;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 500;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: opacity 0.15s;
+      margin-top: 12px;
+    }
+    .btn-primary:active { opacity: 0.8; }
+
+    .btn-secondary {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: none;
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 10px;
+    }
+    .btn-secondary:active { background: var(--bg-muted); }
+
+    .btn-danger {
+      background: none;
+      border: none;
+      color: var(--text-danger);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: var(--radius-sm);
+    }
+    .btn-danger:active { background: var(--bg-danger); }
+
+    /* ── Badges ───────────────────────────────────── */
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .badge-green { background: var(--bg-success); color: var(--text-success); }
+    .badge-blue  { background: var(--bg-info);    color: var(--text-info); }
+    .badge-amber { background: var(--bg-amber);   color: var(--text-amber); }
+
+    /* ── Result / info bar ────────────────────────── */
+    .result-bar {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: var(--bg-muted);
+      border-radius: var(--radius-md);
+      font-size: 14px;
+    }
+    .result-bar strong { font-weight: 600; }
+
+    .tip {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* ── Ingredient list rows ─────────────────────── */
+    .ing-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .ing-row:last-child { border-bottom: none; }
+    .ing-name {
+      font-size: 14px;
+      font-weight: 500;
+      flex: 1;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ing-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+      font-family: var(--font-mono);
+    }
+
+    /* ── Metric cards ─────────────────────────────── */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .metric {
+      background: var(--bg-muted);
+      border-radius: var(--radius-md);
+      padding: 12px 10px;
+      text-align: center;
+    }
+    .metric-label { font-size: 11px; color: var(--text-secondary); margin-bottom: 4px; }
+    .metric-value { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; font-family: var(--font-mono); }
+
+    /* ── Recipe cards ─────────────────────────────── */
+    .recipe-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .recipe-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px;
+      cursor: pointer;
+      gap: 8px;
+    }
+    .recipe-title { font-size: 15px; font-weight: 600; }
+    .recipe-meta  { font-size: 12px; color: var(--text-secondary); margin-top: 2px; font-family: var(--font-mono); }
+    .recipe-arrow {
+      font-size: 16px;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+      user-select: none;
+    }
+    .recipe-card.open .recipe-arrow { transform: rotate(180deg); }
+
+    .recipe-detail {
+      display: none;
+      border-top: 1px solid var(--border);
+      padding: 12px 14px 14px;
+    }
+    .recipe-card.open .recipe-detail { display: block; }
+
+    /* ── Recipe ingredient table ──────────────────── */
+    .ri-table { width: 100%; font-size: 13px; border-collapse: collapse; }
+    .ri-table th {
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0 0 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .ri-table td {
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .ri-table tr:last-child td { border-bottom: none; }
+    .ri-table .col-name { width: 45%; }
+    .ri-table .col-oz   { width: 20%; text-align: right; font-family: var(--font-mono); }
+    .ri-table .col-cost { width: 25%; text-align: right; font-family: var(--font-mono); }
+    .ri-table .col-del  { width: 10%; text-align: right; }
+
+    /* ── Total bar ────────────────────────────────── */
+    .total-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-strong);
+    }
+    .total-label { font-size: 13px; color: var(--text-secondary); }
+    .total-value { font-size: 18px; font-weight: 600; font-family: var(--font-mono); }
+
+    /* ── Empty state ──────────────────────────────── */
+    .empty {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 14px;
+      padding: 24px 0;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="app-header">
+    <h1>Recipe COGS</h1>
+    <p>Ingredient cost tracker and recipe pricer</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('ingredients')">Ingredients</button>
+    <button class="tab" onclick="switchTab('recipes')">Recipes</button>
+  </div>
+
+  <!-- ── INGREDIENTS TAB ─────────────────────── -->
+  <div id="tab-ingredients" class="panel active">
+    <div class="section-label">Add ingredient</div>
+    <div class="card">
+      <div class="field">
+        <label>Ingredient name</label>
+        <input type="text" id="ing-name" placeholder="e.g. Chicken breast" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label>Total price ($)</label>
+        <input type="number" id="ing-price" placeholder="12.99" step="0.01" min="0" inputmode="decimal" />
+      </div>
+      <div class="field">
+        <label>Package size (oz)</label>
+        <input type="number" id="ing-oz" placeholder="32" step="0.1" min="0" inputmode="decimal" />
+      </div>
+      <div id="ing-result" class="result-bar"></div>
+      <p class="tip">Enter the label price and total package weight in oz to calculate cost per oz.</p>
+      <button class="btn-primary" onclick="addIngredient()">Add ingredient</button>
+    </div>
+
+    <div class="section-label">Ingredient library</div>
+    <div class="card" style="padding:0 14px;">
+      <div id="ing-list"><div class="empty">No ingredients yet.</div></div>
+    </div>
+  </div>
+
+  <!-- ── RECIPES TAB ─────────────────────────── -->
+  <div id="tab-recipes" class="panel">
+    <div class="section-label">New recipe</div>
+    <div class="card">
+      <div class="field">
+        <label>Recipe name</label>
+        <input type="text" id="rec-name" placeholder="e.g. Grilled Salmon Bowl" autocomplete="off" />
+      </div>
+      <div class="field">
+        <label>Number of servings</label>
+        <input type="number" id="rec-servings" placeholder="1" min="1" value="1" inputmode="numeric" />
+      </div>
+      <button class="btn-secondary" onclick="openRecipeBuilder()">Build recipe</button>
+    </div>
+
+    <div id="recipe-builder" style="display:none;">
+      <div class="section-label">Add ingredient to recipe</div>
+      <div class="card">
+        <div class="field">
+          <label>Ingredient</label>
+          <select id="rb-ing"><option value="">-- select --</option></select>
+        </div>
+        <div class="field">
+          <label>Amount used (oz)</label>
+          <input type="number" id="rb-oz" placeholder="4" step="0.1" min="0" inputmode="decimal" />
+        </div>
+        <button class="btn-secondary" onclick="addToRecipe()">Add to recipe</button>
+
+        <div style="margin-top:14px;">
+          <table class="ri-table">
+            <thead>
+              <tr>
+                <th class="col-name">Ingredient</th>
+                <th class="col-oz">Oz</th>
+                <th class="col-cost">Cost</th>
+                <th class="col-del"></th>
+              </tr>
+            </thead>
+            <tbody id="rb-ing-list"></tbody>
+          </table>
+          <div id="rb-empty" class="empty" style="padding:14px 0;">No ingredients added yet.</div>
+        </div>
+
+        <div class="total-bar">
+          <span class="total-label">Total recipe cost</span>
+          <span class="total-value" id="rb-total">$0.00</span>
+        </div>
+        <button class="btn-primary" onclick="saveRecipe()">Save recipe</button>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:20px;">Saved recipes</div>
+    <div id="recipe-list"><div class="empty">No recipes saved yet.</div></div>
+  </div>
+</div>
+
+<script>
+  let ingredients = [];
+  let recipes = [];
+  let currentRecipeIngredients = [];
+
+  // ── Storage helpers ───────────────────────────────
+  function storageGet(key) {
+    try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : null; } catch(e) { return null; }
+  }
+  function storageSet(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
+  }
+
+  function loadData() {
+    ingredients = storageGet('cogs_ingredients') || [];
+    recipes     = storageGet('cogs_recipes')     || [];
+    renderIngredients();
+    renderRecipes();
+    populateIngSelect();
+  }
+
+  // ── Tabs ──────────────────────────────────────────
+  function switchTab(t) {
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelector('.tab[onclick*="' + t + '"]').classList.add('active');
+    document.getElementById('tab-' + t).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── Ingredients ───────────────────────────────────
+  function addIngredient() {
+    const name  = document.getElementById('ing-name').value.trim();
+    const price = parseFloat(document.getElementById('ing-price').value);
+    const oz    = parseFloat(document.getElementById('ing-oz').value);
+    if (!name || isNaN(price) || isNaN(oz) || price <= 0 || oz <= 0) {
+      alert('Please fill in all fields with valid numbers.'); return;
+    }
+    const costPerOz = price / oz;
+    ingredients.push({ id: Date.now(), name, price, oz, costPerOz });
+    storageSet('cogs_ingredients', ingredients);
+    renderIngredients();
+    populateIngSelect();
+    const res = document.getElementById('ing-result');
+    res.style.display = 'block';
+    res.innerHTML = '<strong>' + name + '</strong>: $' + price.toFixed(2) + ' / ' + oz + ' oz = <strong style="color:#3B6D11;">$' + costPerOz.toFixed(4) + ' per oz</strong>';
+    document.getElementById('ing-name').value  = '';
+    document.getElementById('ing-price').value = '';
+    document.getElementById('ing-oz').value    = '';
+  }
+
+  function deleteIngredient(id) {
+    if (!confirm('Remove this ingredient?')) return;
+    ingredients = ingredients.filter(i => i.id !== id);
+    storageSet('cogs_ingredients', ingredients);
+    renderIngredients();
+    populateIngSelect();
+  }
+
+  function renderIngredients() {
+    const el = document.getElementById('ing-list');
+    if (ingredients.length === 0) {
+      el.innerHTML = '<div class="empty">No ingredients yet.</div>'; return;
+    }
+    el.innerHTML = ingredients.map(i =>
+      '<div class="ing-row">' +
+        '<div style="flex:1;min-width:0;">' +
+          '<div class="ing-name">' + escHtml(i.name) + '</div>' +
+          '<div class="ing-sub">$' + i.price.toFixed(2) + ' / ' + i.oz + ' oz</div>' +
+        '</div>' +
+        '<span class="badge badge-green">$' + i.costPerOz.toFixed(4) + '/oz</span>' +
+        '<button class="btn-danger" onclick="deleteIngredient(' + i.id + ')">Remove</button>' +
+      '</div>'
+    ).join('');
+  }
+
+  function populateIngSelect() {
+    const sel = document.getElementById('rb-ing');
+    sel.innerHTML = '<option value="">-- select --</option>' +
+      ingredients.map(i => '<option value="' + i.id + '">' + escHtml(i.name) + ' ($' + i.costPerOz.toFixed(4) + '/oz)</option>').join('');
+  }
+
+  // ── Recipe builder ────────────────────────────────
+  function openRecipeBuilder() {
+    const name = document.getElementById('rec-name').value.trim();
+    if (!name) { alert('Enter a recipe name first.'); return; }
+    currentRecipeIngredients = [];
+    document.getElementById('recipe-builder').style.display = 'block';
+    document.getElementById('recipe-builder').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    renderRecipeBuilder();
+  }
+
+  function addToRecipe() {
+    const ingId = parseInt(document.getElementById('rb-ing').value);
+    const oz    = parseFloat(document.getElementById('rb-oz').value);
+    if (!ingId || isNaN(oz) || oz <= 0) { alert('Select an ingredient and enter amount.'); return; }
+    const ing = ingredients.find(i => i.id === ingId);
+    if (!ing) return;
+    currentRecipeIngredients.push({ ingId, name: ing.name, oz, cost: ing.costPerOz * oz });
+    renderRecipeBuilder();
+    document.getElementById('rb-oz').value = '';
+  }
+
+  function removeFromRecipe(idx) {
+    currentRecipeIngredients.splice(idx, 1);
+    renderRecipeBuilder();
+  }
+
+  function renderRecipeBuilder() {
+    const tbody = document.getElementById('rb-ing-list');
+    const empty = document.getElementById('rb-empty');
+    if (currentRecipeIngredients.length === 0) {
+      tbody.innerHTML = '';
+      empty.style.display = 'block';
+      document.getElementById('rb-total').textContent = '$0.00';
+      return;
+    }
+    empty.style.display = 'none';
+    const total = currentRecipeIngredients.reduce((s, r) => s + r.cost, 0);
+    tbody.innerHTML = currentRecipeIngredients.map((r, i) =>
+      '<tr>' +
+        '<td class="col-name">' + escHtml(r.name) + '</td>' +
+        '<td class="col-oz">'   + r.oz.toFixed(2)  + '</td>' +
+        '<td class="col-cost">$' + r.cost.toFixed(4) + '</td>' +
+        '<td class="col-del"><button class="btn-danger" onclick="removeFromRecipe(' + i + ')">X</button></td>' +
+      '</tr>'
+    ).join('');
+    document.getElementById('rb-total').textContent = '$' + total.toFixed(4);
+  }
+
+  function saveRecipe() {
+    const name     = document.getElementById('rec-name').value.trim();
+    const servings = parseInt(document.getElementById('rec-servings').value) || 1;
+    if (!name) { alert('Enter a recipe name.'); return; }
+    if (currentRecipeIngredients.length === 0) { alert('Add at least one ingredient.'); return; }
+    const total = currentRecipeIngredients.reduce((s, r) => s + r.cost, 0);
+    recipes.push({ id: Date.now(), name, servings, ingredients: [...currentRecipeIngredients], total, costPerServing: total / servings });
+    storageSet('cogs_recipes', recipes);
+    renderRecipes();
+    currentRecipeIngredients = [];
+    document.getElementById('recipe-builder').style.display = 'none';
+    document.getElementById('rec-name').value = '';
+    document.getElementById('rec-servings').value = '1';
+    renderRecipeBuilder();
+    switchTab('recipes');
+  }
+
+  // ── Recipes list ──────────────────────────────────
+  function deleteRecipe(id, e) {
+    e.stopPropagation();
+    if (!confirm('Delete this recipe?')) return;
+    recipes = recipes.filter(r => r.id !== id);
+    storageSet('cogs_recipes', recipes);
+    renderRecipes();
+  }
+
+  function toggleRecipe(id) {
+    document.getElementById('rc-' + id).classList.toggle('open');
+  }
+
+  function renderRecipes() {
+    const el = document.getElementById('recipe-list');
+    if (recipes.length === 0) {
+      el.innerHTML = '<div class="empty">No recipes saved yet.</div>'; return;
+    }
+    const totalCOGS = recipes.reduce((s, r) => s + r.total, 0);
+    let html = '<div class="metric-grid">' +
+      '<div class="metric"><div class="metric-label">Recipes</div><div class="metric-value">' + recipes.length + '</div></div>' +
+      '<div class="metric"><div class="metric-label">Total COGS</div><div class="metric-value">$' + totalCOGS.toFixed(2) + '</div></div>' +
+      '<div class="metric"><div class="metric-label">Avg cost</div><div class="metric-value">$' + (totalCOGS / recipes.length).toFixed(2) + '</div></div>' +
+    '</div>';
+
+    html += recipes.map(r =>
+      '<div class="recipe-card" id="rc-' + r.id + '">' +
+        '<div class="recipe-card-header" onclick="toggleRecipe(' + r.id + ')">' +
+          '<div style="flex:1;min-width:0;">' +
+            '<div class="recipe-title">' + escHtml(r.name) + '</div>' +
+            '<div class="recipe-meta">' + r.servings + ' serving' + (r.servings !== 1 ? 's' : '') + ' &nbsp;|&nbsp; $' + r.costPerServing.toFixed(4) + '/serving</div>' +
+          '</div>' +
+          '<button class="btn-danger" onclick="deleteRecipe(' + r.id + ', event)" style="margin-right:4px;">Delete</button>' +
+          '<span class="recipe-arrow">v</span>' +
+        '</div>' +
+        '<div class="recipe-detail">' +
+          '<table class="ri-table">' +
+            '<thead><tr>' +
+              '<th class="col-name">Ingredient</th>' +
+              '<th class="col-oz">Oz</th>' +
+              '<th class="col-cost">Cost</th>' +
+              '<th class="col-del"></th>' +
+            '</tr></thead>' +
+            '<tbody>' +
+              r.ingredients.map(i =>
+                '<tr>' +
+                  '<td class="col-name">' + escHtml(i.name) + '</td>' +
+                  '<td class="col-oz">' + i.oz.toFixed(2) + '</td>' +
+                  '<td class="col-cost">$' + i.cost.toFixed(4) + '</td>' +
+                  '<td class="col-del"></td>' +
+                '</tr>'
+              ).join('') +
+            '</tbody>' +
+          '</table>' +
+          '<div class="total-bar">' +
+            '<span class="total-label">Total COGS</span>' +
+            '<span class="total-value">$' + r.total.toFixed(4) + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    ).join('');
+
+    el.innerHTML = html;
+  }
+
+  // ── Utility ───────────────────────────────────────
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  loadData();
+</script>
+</body>
+</html>
