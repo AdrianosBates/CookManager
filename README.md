@@ -1,4 +1,4 @@
 100% AI code use at your own risk
 
 ## License
-Copying and distribution of this file, with or without modification, are permitted in any medium provided you do not contact the author about the file or any problems you are having with the file
+Copying and distribution of these files, with or without modification, are permitted in any medium provided you do not contact the author about the file or any problems you are having with the file
