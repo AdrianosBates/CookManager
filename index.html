@@ -50,7 +50,6 @@
 
     .app { max-width: 480px; margin: 0 auto; padding: 0 0 100px; min-height: 100vh; }
 
-    /* Header */
     .app-header {
       padding: 20px 16px 12px;
       border-bottom: 1px solid var(--border);
@@ -60,7 +59,6 @@
     .app-header h1 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
     .app-header p  { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
 
-    /* Tabs */
     .tabs {
       display: flex;
       border-bottom: 1px solid var(--border);
@@ -76,11 +74,9 @@
     }
     .tab.active { color: var(--text-primary); border-bottom-color: var(--accent); }
 
-    /* Panels */
     .panel { display: none; padding: 16px; }
     .panel.active { display: block; }
 
-    /* Section labels */
     .section-label {
       font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
       text-transform: uppercase; color: var(--text-secondary);
@@ -88,7 +84,6 @@
     }
     .section-label:first-child { margin-top: 0; }
 
-    /* Cards */
     .card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -96,12 +91,9 @@
       padding: 14px; margin-bottom: 10px;
     }
 
-    /* Fields */
     .field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
     .field:last-child { margin-bottom: 0; }
     .field label { font-size: 12px; font-weight: 500; color: var(--text-secondary); }
-
-    /* Two-column field row */
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
 
     input[type="text"], input[type="number"], select {
@@ -121,7 +113,6 @@
     }
     input::placeholder { color: var(--text-secondary); opacity: 0.6; }
 
-    /* Buttons */
     .btn-primary {
       display: block; width: 100%; padding: 13px;
       background: var(--accent); color: #fff;
@@ -145,11 +136,11 @@
       background: none; border: none;
       color: var(--text-danger);
       font-family: var(--font-body); font-size: 13px; font-weight: 500;
-      cursor: pointer; padding: 4px 6px; border-radius: var(--radius-sm);
+      cursor: pointer; padding: 6px 8px; border-radius: var(--radius-sm);
+      min-width: 48px; min-height: 40px;
     }
     .btn-danger:active { background: var(--bg-danger); }
 
-    /* Badges */
     .badge {
       display: inline-block; font-size: 12px; font-weight: 500;
       padding: 3px 8px; border-radius: 20px; white-space: nowrap;
@@ -159,25 +150,20 @@
     .badge-amber  { background: var(--bg-amber);   color: var(--text-amber); }
     .badge-purple { background: var(--bg-purple);  color: var(--text-purple); }
 
-    /* Unit category pill */
     .unit-cat {
       display: inline-block; font-size: 11px; font-weight: 600;
-      padding: 2px 7px; border-radius: 20px; margin-left: 6px;
-      vertical-align: middle;
+      padding: 2px 7px; border-radius: 20px; margin-left: 6px; vertical-align: middle;
     }
     .unit-cat-volume { background: var(--bg-info);    color: var(--text-info); }
     .unit-cat-weight { background: var(--bg-amber);   color: var(--text-amber); }
     .unit-cat-count  { background: var(--bg-purple);  color: var(--text-purple); }
 
-    /* Result bar */
     .result-bar {
       display: none; margin-top: 10px; padding: 10px 12px;
       background: var(--bg-muted); border-radius: var(--radius-md); font-size: 14px;
     }
-
     .tip { font-size: 12px; color: var(--text-secondary); margin-top: 8px; line-height: 1.5; }
 
-    /* Ingredient list rows */
     .ing-row {
       display: flex; align-items: center; gap: 8px;
       padding: 11px 0; border-bottom: 1px solid var(--border);
@@ -189,26 +175,25 @@
     }
     .ing-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; font-family: var(--font-mono); }
 
-    /* Metric cards */
     .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
     .metric { background: var(--bg-muted); border-radius: var(--radius-md); padding: 12px 10px; text-align: center; }
     .metric-label { font-size: 11px; color: var(--text-secondary); margin-bottom: 4px; }
     .metric-value { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; font-family: var(--font-mono); }
 
-    /* Recipe cards */
     .recipe-card {
       background: var(--bg-card); border: 1px solid var(--border);
       border-radius: var(--radius-lg); margin-bottom: 10px; overflow: hidden;
     }
     .recipe-card-header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 14px; cursor: pointer; gap: 8px;
+      padding: 14px; gap: 8px;
     }
+    .recipe-title-block { flex: 1; min-width: 0; cursor: pointer; }
     .recipe-title { font-size: 15px; font-weight: 600; }
     .recipe-meta  { font-size: 12px; color: var(--text-secondary); margin-top: 2px; font-family: var(--font-mono); }
     .recipe-arrow {
       font-size: 16px; color: var(--text-secondary);
-      flex-shrink: 0; transition: transform 0.2s; user-select: none;
+      flex-shrink: 0; transition: transform 0.2s; user-select: none; cursor: pointer; padding: 4px;
     }
     .recipe-card.open .recipe-arrow { transform: rotate(180deg); }
     .recipe-detail {
@@ -216,22 +201,19 @@
     }
     .recipe-card.open .recipe-detail { display: block; }
 
-    /* Recipe ingredient table */
     .ri-table { width: 100%; font-size: 13px; border-collapse: collapse; table-layout: fixed; }
     .ri-table th {
-      text-align: left; font-size: 11px; font-weight: 600;
-      color: var(--text-secondary); text-transform: uppercase;
-      letter-spacing: 0.05em; padding: 0 0 6px;
+      text-align: left; font-size: 11px; font-weight: 600; color: var(--text-secondary);
+      text-transform: uppercase; letter-spacing: 0.05em; padding: 0 0 6px;
       border-bottom: 1px solid var(--border);
     }
     .ri-table td { padding: 7px 0; border-bottom: 1px solid var(--border); vertical-align: middle; }
     .ri-table tr:last-child td { border-bottom: none; }
     .ri-table .col-name { width: 42%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .ri-table .col-amt  { width: 28%; text-align: right; font-family: var(--font-mono); }
-    .ri-table .col-cost { width: 22%; text-align: right; font-family: var(--font-mono); }
+    .ri-table .col-amt  { width: 30%; text-align: right; font-family: var(--font-mono); }
+    .ri-table .col-cost { width: 20%; text-align: right; font-family: var(--font-mono); }
     .ri-table .col-del  { width: 8%;  text-align: right; }
 
-    /* Total bar */
     .total-bar {
       display: flex; justify-content: space-between; align-items: center;
       margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-strong);
@@ -239,18 +221,11 @@
     .total-label { font-size: 13px; color: var(--text-secondary); }
     .total-value { font-size: 18px; font-weight: 600; font-family: var(--font-mono); }
 
-    /* Conversion hint */
-    .convert-hint {
-      font-size: 12px; color: var(--text-secondary);
-      margin-top: 6px; min-height: 18px; font-family: var(--font-mono);
-    }
+    .convert-hint { font-size: 12px; color: var(--text-secondary); margin-top: 6px; min-height: 18px; font-family: var(--font-mono); }
     .convert-hint.ok  { color: var(--text-success); }
     .convert-hint.err { color: var(--text-danger); }
 
-    /* Empty */
     .empty { text-align: center; color: var(--text-secondary); font-size: 14px; padding: 24px 0; }
-
-    /* Divider */
     .divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
   </style>
 </head>
@@ -262,8 +237,8 @@
   </div>
 
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('ingredients')">Ingredients</button>
-    <button class="tab" onclick="switchTab('recipes')">Recipes</button>
+    <button class="tab active" data-tab="ingredients">Ingredients</button>
+    <button class="tab"        data-tab="recipes">Recipes</button>
   </div>
 
   <!-- INGREDIENTS TAB -->
@@ -287,7 +262,7 @@
       <div class="field-row">
         <div class="field" style="margin-bottom:0;">
           <label>Unit category</label>
-          <select id="ing-cat" onchange="updateUnitOptions()">
+          <select id="ing-cat">
             <option value="volume">Volume (liquids)</option>
             <option value="weight">Weight (dry/solid)</option>
             <option value="count">Count / each</option>
@@ -299,8 +274,8 @@
         </div>
       </div>
       <div id="ing-result" class="result-bar"></div>
-      <p class="tip">Enter the purchase price, quantity, and unit. The app stores cost in a base unit for automatic conversion in recipes.</p>
-      <button class="btn-primary" onclick="addIngredient()">Add ingredient</button>
+      <p class="tip">Cost is stored per base unit (fl oz / oz / each) for automatic conversion in recipes.</p>
+      <button class="btn-primary" id="btn-add-ingredient">Add ingredient</button>
     </div>
 
     <div class="section-label">Ingredient library</div>
@@ -321,7 +296,7 @@
         <label>Number of servings</label>
         <input type="number" id="rec-servings" placeholder="1" min="1" value="1" inputmode="numeric" />
       </div>
-      <button class="btn-secondary" onclick="openRecipeBuilder()">Build recipe</button>
+      <button class="btn-secondary" id="btn-open-builder">Build recipe</button>
     </div>
 
     <div id="recipe-builder" style="display:none;">
@@ -329,25 +304,21 @@
       <div class="card">
         <div class="field">
           <label>Ingredient</label>
-          <select id="rb-ing" onchange="onRecipeIngChange()">
-            <option value="">-- select ingredient --</option>
-          </select>
+          <select id="rb-ing"><option value="">-- select ingredient --</option></select>
         </div>
         <div class="field-row">
           <div class="field" style="margin-bottom:0;">
             <label>Amount used</label>
-            <input type="number" id="rb-qty" placeholder="4" step="0.001" min="0" inputmode="decimal" oninput="updateConvertHint()" />
+            <input type="number" id="rb-qty" placeholder="4" step="0.001" min="0" inputmode="decimal" />
           </div>
           <div class="field" style="margin-bottom:0;">
             <label>Unit</label>
-            <select id="rb-unit" onchange="updateConvertHint()"></select>
+            <select id="rb-unit"></select>
           </div>
         </div>
         <div id="convert-hint" class="convert-hint"></div>
-        <button class="btn-secondary" onclick="addToRecipe()">Add to recipe</button>
-
+        <button class="btn-secondary" id="btn-add-to-recipe">Add to recipe</button>
         <hr class="divider" />
-
         <table class="ri-table">
           <thead>
             <tr>
@@ -360,12 +331,11 @@
           <tbody id="rb-ing-list"></tbody>
         </table>
         <div id="rb-empty" class="empty" style="padding:14px 0;">No ingredients added yet.</div>
-
         <div class="total-bar">
           <span class="total-label">Total recipe cost</span>
           <span class="total-value" id="rb-total">$0.00</span>
         </div>
-        <button class="btn-primary" onclick="saveRecipe()">Save recipe</button>
+        <button class="btn-primary" id="btn-save-recipe">Save recipe</button>
       </div>
     </div>
 
@@ -376,115 +346,101 @@
 
 <script>
 // ── Unit definitions ──────────────────────────────────────────────────────────
-// Base units: volume -> fl oz | weight -> oz | count -> each
-const UNITS = {
+var UNITS = {
   volume: [
-    { label: 'fl oz',   toBase: 1 },
-    { label: 'tsp',     toBase: 1/6 },
-    { label: 'tbsp',    toBase: 0.5 },
-    { label: 'cup',     toBase: 8 },
-    { label: 'pint',    toBase: 16 },
-    { label: 'quart',   toBase: 32 },
-    { label: 'half gal',toBase: 64 },
-    { label: 'gallon',  toBase: 128 },
-    { label: 'ml',      toBase: 0.033814 },
-    { label: 'liter',   toBase: 33.814 },
+    { label: 'fl oz',    toBase: 1        },
+    { label: 'tsp',      toBase: 1/6      },
+    { label: 'tbsp',     toBase: 0.5      },
+    { label: 'cup',      toBase: 8        },
+    { label: 'pint',     toBase: 16       },
+    { label: 'quart',    toBase: 32       },
+    { label: 'half gal', toBase: 64       },
+    { label: 'gallon',   toBase: 128      },
+    { label: 'ml',       toBase: 0.033814 },
+    { label: 'liter',    toBase: 33.814   }
   ],
   weight: [
-    { label: 'oz',      toBase: 1 },
-    { label: 'lb',      toBase: 16 },
-    { label: 'gram',    toBase: 0.035274 },
-    { label: 'kg',      toBase: 35.274 },
+    { label: 'oz',   toBase: 1        },
+    { label: 'lb',   toBase: 16       },
+    { label: 'gram', toBase: 0.035274 },
+    { label: 'kg',   toBase: 35.274   }
   ],
   count: [
-    { label: 'each',    toBase: 1 },
-    { label: 'dozen',   toBase: 12 },
-    { label: 'half doz',toBase: 6 },
-  ],
+    { label: 'each',     toBase: 1  },
+    { label: 'dozen',    toBase: 12 },
+    { label: 'half doz', toBase: 6  }
+  ]
 };
-
-const BASE_LABEL = { volume: 'fl oz', weight: 'oz', count: 'each' };
-const CAT_LABEL  = { volume: 'Volume', weight: 'Weight', count: 'Count' };
+var BASE_LABEL = { volume: 'fl oz', weight: 'oz', count: 'each' };
+var CAT_LABEL  = { volume: 'Volume', weight: 'Weight', count: 'Count' };
 
 function toBase(qty, unit, cat) {
-  const u = UNITS[cat].find(u => u.label === unit);
-  return u ? qty * u.toBase : null;
+  var list = UNITS[cat];
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].label === unit) return qty * list[i].toBase;
+  }
+  return null;
 }
-function fromBase(baseQty, unit, cat) {
-  const u = UNITS[cat].find(u => u.label === unit);
-  return u ? baseQty / u.toBase : null;
-}
-function costPerBase(price, qty, unit, cat) {
-  const b = toBase(qty, unit, cat);
+function calcCostPerBase(price, qty, unit, cat) {
+  var b = toBase(qty, unit, cat);
   return b ? price / b : null;
 }
 
-// ── Storage ───────────────────────────────────────────────────────────────────
-let ingredients = [];
-let recipes = [];
-let currentRecipeIngredients = [];
+// ── State ─────────────────────────────────────────────────────────────────────
+var ingredients = [];
+var recipes = [];
+var currentRecipeIngredients = [];
 
+// ── Storage ───────────────────────────────────────────────────────────────────
 function storageGet(key) {
-  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : null; } catch(e) { return null; }
+  try { var v = localStorage.getItem(key); return v ? JSON.parse(v) : null; } catch(e) { return null; }
 }
 function storageSet(key, val) {
   try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
 }
-function loadData() {
-  ingredients = storageGet('cogs_ingredients') || [];
-  recipes     = storageGet('cogs_recipes')     || [];
-  updateUnitOptions();
-  renderIngredients();
-  renderRecipes();
-  populateIngSelect();
-}
 
 // ── Tabs ──────────────────────────────────────────────────────────────────────
 function switchTab(t) {
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelector('.tab[onclick*="' + t + '"]').classList.add('active');
-  document.getElementById('tab-' + t).classList.add('active');
+  document.querySelectorAll('.tab').forEach(function(b) { b.classList.toggle('active', b.dataset.tab === t); });
+  document.querySelectorAll('.panel').forEach(function(p) { p.classList.toggle('active', p.id === 'tab-' + t); });
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ── Unit dropdowns ────────────────────────────────────────────────────────────
-function updateUnitOptions() {
-  const cat = document.getElementById('ing-cat').value;
-  const sel = document.getElementById('ing-unit');
-  sel.innerHTML = UNITS[cat].map(u => '<option value="' + u.label + '">' + u.label + '</option>').join('');
+function updateIngUnitOptions() {
+  var cat = document.getElementById('ing-cat').value;
+  var sel = document.getElementById('ing-unit');
+  sel.innerHTML = UNITS[cat].map(function(u) { return '<option value="' + u.label + '">' + u.label + '</option>'; }).join('');
 }
 
 function populateRecipeUnitSelect(cat) {
-  const sel = document.getElementById('rb-unit');
-  sel.innerHTML = UNITS[cat].map(u => '<option value="' + u.label + '">' + u.label + '</option>').join('');
+  var sel = document.getElementById('rb-unit');
+  sel.innerHTML = UNITS[cat].map(function(u) { return '<option value="' + u.label + '">' + u.label + '</option>'; }).join('');
 }
 
 // ── Ingredients ───────────────────────────────────────────────────────────────
 function addIngredient() {
-  const name  = document.getElementById('ing-name').value.trim();
-  const price = parseFloat(document.getElementById('ing-price').value);
-  const qty   = parseFloat(document.getElementById('ing-qty').value);
-  const cat   = document.getElementById('ing-cat').value;
-  const unit  = document.getElementById('ing-unit').value;
+  var name  = document.getElementById('ing-name').value.trim();
+  var price = parseFloat(document.getElementById('ing-price').value);
+  var qty   = parseFloat(document.getElementById('ing-qty').value);
+  var cat   = document.getElementById('ing-cat').value;
+  var unit  = document.getElementById('ing-unit').value;
 
   if (!name || isNaN(price) || isNaN(qty) || price <= 0 || qty <= 0) {
     alert('Please fill in all fields with valid numbers.'); return;
   }
+  var cpb = calcCostPerBase(price, qty, unit, cat);
+  if (!cpb) { alert('Could not calculate cost.'); return; }
 
-  const cpb = costPerBase(price, qty, unit, cat);
-  if (!cpb) { alert('Could not calculate cost — check units.'); return; }
-
-  const ing = { id: Date.now(), name, price, qty, unit, cat, costPerBase: cpb };
-  ingredients.push(ing);
+  ingredients.push({ id: Date.now(), name: name, price: price, qty: qty, unit: unit, cat: cat, costPerBase: cpb });
   storageSet('cogs_ingredients', ingredients);
   renderIngredients();
   populateIngSelect();
 
-  const res = document.getElementById('ing-result');
+  var res = document.getElementById('ing-result');
   res.style.display = 'block';
   res.innerHTML = '<strong>' + escHtml(name) + '</strong>: $' + price.toFixed(2) + ' / ' + qty + ' ' + unit +
-    ' &nbsp;=&nbsp; <strong style="color:#3B6D11;">$' + cpb.toFixed(5) + ' per ' + BASE_LABEL[cat] + '</strong>';
+    ' = <strong style="color:var(--text-success);">$' + cpb.toFixed(5) + ' per ' + BASE_LABEL[cat] + '</strong>';
 
   document.getElementById('ing-name').value  = '';
   document.getElementById('ing-price').value = '';
@@ -493,75 +449,69 @@ function addIngredient() {
 
 function deleteIngredient(id) {
   if (!confirm('Remove this ingredient?')) return;
-  ingredients = ingredients.filter(i => i.id !== id);
+  ingredients = ingredients.filter(function(i) { return i.id !== id; });
   storageSet('cogs_ingredients', ingredients);
   renderIngredients();
   populateIngSelect();
 }
 
 function renderIngredients() {
-  const el = document.getElementById('ing-list');
-  if (ingredients.length === 0) {
-    el.innerHTML = '<div class="empty">No ingredients yet.</div>'; return;
-  }
-  el.innerHTML = ingredients.map(i => {
-    const catClass = 'unit-cat-' + i.cat;
+  var el = document.getElementById('ing-list');
+  if (ingredients.length === 0) { el.innerHTML = '<div class="empty">No ingredients yet.</div>'; return; }
+  el.innerHTML = ingredients.map(function(i) {
     return '<div class="ing-row">' +
       '<div style="flex:1;min-width:0;">' +
         '<div class="ing-name">' + escHtml(i.name) +
-          '<span class="unit-cat ' + catClass + '">' + CAT_LABEL[i.cat] + '</span>' +
+          '<span class="unit-cat unit-cat-' + i.cat + '">' + CAT_LABEL[i.cat] + '</span>' +
         '</div>' +
         '<div class="ing-sub">$' + i.price.toFixed(2) + ' / ' + i.qty + ' ' + i.unit + '</div>' +
       '</div>' +
       '<span class="badge badge-green">$' + i.costPerBase.toFixed(5) + '/' + BASE_LABEL[i.cat] + '</span>' +
-      '<button class="btn-danger" onclick="deleteIngredient(' + i.id + ')">Remove</button>' +
+      '<button class="btn-danger" data-action="delete-ingredient" data-id="' + i.id + '">Remove</button>' +
     '</div>';
   }).join('');
 }
 
 // ── Recipe builder ────────────────────────────────────────────────────────────
 function populateIngSelect() {
-  const sel = document.getElementById('rb-ing');
+  var sel = document.getElementById('rb-ing');
   sel.innerHTML = '<option value="">-- select ingredient --</option>' +
-    ingredients.map(i =>
-      '<option value="' + i.id + '">' + escHtml(i.name) + ' (' + CAT_LABEL[i.cat] + ')</option>'
-    ).join('');
+    ingredients.map(function(i) {
+      return '<option value="' + i.id + '">' + escHtml(i.name) + ' (' + CAT_LABEL[i.cat] + ')</option>';
+    }).join('');
 }
 
 function onRecipeIngChange() {
-  const ingId = parseInt(document.getElementById('rb-ing').value);
-  const ing   = ingredients.find(i => i.id === ingId);
+  var id  = parseInt(document.getElementById('rb-ing').value);
+  var ing = null;
+  for (var i = 0; i < ingredients.length; i++) { if (ingredients[i].id === id) { ing = ingredients[i]; break; } }
   if (!ing) { document.getElementById('rb-unit').innerHTML = ''; document.getElementById('convert-hint').textContent = ''; return; }
   populateRecipeUnitSelect(ing.cat);
-  // Default to the ingredient's own purchase unit if available
-  const sel = document.getElementById('rb-unit');
-  const opts = Array.from(sel.options);
-  const match = opts.find(o => o.value === ing.unit);
-  if (match) sel.value = ing.unit;
+  var sel = document.getElementById('rb-unit');
+  for (var j = 0; j < sel.options.length; j++) { if (sel.options[j].value === ing.unit) { sel.value = ing.unit; break; } }
   updateConvertHint();
 }
 
 function updateConvertHint() {
-  const hint  = document.getElementById('convert-hint');
-  const ingId = parseInt(document.getElementById('rb-ing').value);
-  const qty   = parseFloat(document.getElementById('rb-qty').value);
-  const unit  = document.getElementById('rb-unit').value;
-  const ing   = ingredients.find(i => i.id === ingId);
+  var hint = document.getElementById('convert-hint');
+  var id   = parseInt(document.getElementById('rb-ing').value);
+  var qty  = parseFloat(document.getElementById('rb-qty').value);
+  var unit = document.getElementById('rb-unit').value;
+  var ing  = null;
+  for (var i = 0; i < ingredients.length; i++) { if (ingredients[i].id === id) { ing = ingredients[i]; break; } }
 
   if (!ing || isNaN(qty) || qty <= 0 || !unit) { hint.textContent = ''; hint.className = 'convert-hint'; return; }
 
-  const baseQty = toBase(qty, unit, ing.cat);
-  if (!baseQty) { hint.textContent = 'Cannot convert these units.'; hint.className = 'convert-hint err'; return; }
+  var base = toBase(qty, unit, ing.cat);
+  if (!base) { hint.textContent = 'Cannot convert these units.'; hint.className = 'convert-hint err'; return; }
 
-  const cost = baseQty * ing.costPerBase;
-  const baseAmt = baseQty < 0.01 ? baseQty.toFixed(5) : baseQty.toFixed(4);
-
-  hint.textContent = qty + ' ' + unit + ' = ' + baseAmt + ' ' + BASE_LABEL[ing.cat] + '  ->  $' + cost.toFixed(4);
+  var cost = base * ing.costPerBase;
+  hint.textContent = qty + ' ' + unit + ' = ' + (base < 0.01 ? base.toFixed(5) : base.toFixed(3)) + ' ' + BASE_LABEL[ing.cat] + '  ->  $' + cost.toFixed(4);
   hint.className = 'convert-hint ok';
 }
 
 function openRecipeBuilder() {
-  const name = document.getElementById('rec-name').value.trim();
+  var name = document.getElementById('rec-name').value.trim();
   if (!name) { alert('Enter a recipe name first.'); return; }
   if (ingredients.length === 0) { alert('Add some ingredients first.'); return; }
   currentRecipeIngredients = [];
@@ -571,22 +521,24 @@ function openRecipeBuilder() {
   document.getElementById('rb-ing').value = '';
   document.getElementById('rb-qty').value = '';
   renderRecipeBuilder();
-  setTimeout(() => document.getElementById('recipe-builder').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  setTimeout(function() {
+    document.getElementById('recipe-builder').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
 }
 
 function addToRecipe() {
-  const ingId = parseInt(document.getElementById('rb-ing').value);
-  const qty   = parseFloat(document.getElementById('rb-qty').value);
-  const unit  = document.getElementById('rb-unit').value;
-  const ing   = ingredients.find(i => i.id === ingId);
+  var id   = parseInt(document.getElementById('rb-ing').value);
+  var qty  = parseFloat(document.getElementById('rb-qty').value);
+  var unit = document.getElementById('rb-unit').value;
+  var ing  = null;
+  for (var i = 0; i < ingredients.length; i++) { if (ingredients[i].id === id) { ing = ingredients[i]; break; } }
 
   if (!ing || isNaN(qty) || qty <= 0 || !unit) { alert('Select an ingredient and enter a valid amount.'); return; }
 
-  const baseQty = toBase(qty, unit, ing.cat);
-  if (!baseQty) { alert('Could not convert these units.'); return; }
+  var base = toBase(qty, unit, ing.cat);
+  if (!base) { alert('Could not convert these units.'); return; }
 
-  const cost = baseQty * ing.costPerBase;
-  currentRecipeIngredients.push({ ingId, name: ing.name, qty, unit, baseQty, cost, cat: ing.cat });
+  currentRecipeIngredients.push({ ingId: id, name: ing.name, qty: qty, unit: unit, base: base, cost: base * ing.costPerBase, cat: ing.cat });
   renderRecipeBuilder();
   document.getElementById('rb-qty').value = '';
   document.getElementById('convert-hint').textContent = '';
@@ -598,40 +550,47 @@ function removeFromRecipe(idx) {
 }
 
 function renderRecipeBuilder() {
-  const tbody = document.getElementById('rb-ing-list');
-  const empty = document.getElementById('rb-empty');
+  var tbody = document.getElementById('rb-ing-list');
+  var empty = document.getElementById('rb-empty');
+
   if (currentRecipeIngredients.length === 0) {
     tbody.innerHTML = '';
     empty.style.display = 'block';
     document.getElementById('rb-total').textContent = '$0.00';
     return;
   }
+
   empty.style.display = 'none';
-  const total = currentRecipeIngredients.reduce((s, r) => s + r.cost, 0);
-  tbody.innerHTML = currentRecipeIngredients.map((r, i) =>
-    '<tr>' +
+  var total = 0;
+  for (var i = 0; i < currentRecipeIngredients.length; i++) total += currentRecipeIngredients[i].cost;
+
+  tbody.innerHTML = currentRecipeIngredients.map(function(r, i) {
+    return '<tr>' +
       '<td class="col-name">' + escHtml(r.name) + '</td>' +
       '<td class="col-amt">' + r.qty + ' ' + r.unit + '</td>' +
       '<td class="col-cost">$' + r.cost.toFixed(4) + '</td>' +
-      '<td class="col-del"><button class="btn-danger" onclick="removeFromRecipe(' + i + ')">X</button></td>' +
-    '</tr>'
-  ).join('');
+      '<td class="col-del">' +
+        '<button class="btn-danger" data-action="remove-from-recipe" data-idx="' + i + '">X</button>' +
+      '</td>' +
+    '</tr>';
+  }).join('');
+
   document.getElementById('rb-total').textContent = '$' + total.toFixed(4);
 }
 
 function saveRecipe() {
-  const name     = document.getElementById('rec-name').value.trim();
-  const servings = parseInt(document.getElementById('rec-servings').value) || 1;
+  var name     = document.getElementById('rec-name').value.trim();
+  var servings = parseInt(document.getElementById('rec-servings').value) || 1;
   if (!name) { alert('Enter a recipe name.'); return; }
   if (currentRecipeIngredients.length === 0) { alert('Add at least one ingredient.'); return; }
-  const total = currentRecipeIngredients.reduce((s, r) => s + r.cost, 0);
-  recipes.push({
-    id: Date.now(), name, servings,
-    ingredients: [...currentRecipeIngredients],
-    total, costPerServing: total / servings
-  });
+
+  var total = 0;
+  for (var i = 0; i < currentRecipeIngredients.length; i++) total += currentRecipeIngredients[i].cost;
+
+  recipes.push({ id: Date.now(), name: name, servings: servings, ingredients: currentRecipeIngredients.slice(), total: total, costPerServing: total / servings });
   storageSet('cogs_recipes', recipes);
   renderRecipes();
+
   currentRecipeIngredients = [];
   document.getElementById('recipe-builder').style.display = 'none';
   document.getElementById('rec-name').value = '';
@@ -641,40 +600,36 @@ function saveRecipe() {
 }
 
 // ── Recipes list ──────────────────────────────────────────────────────────────
-function deleteRecipe(id, e) {
-  e.stopPropagation();
+function deleteRecipe(id) {
   if (!confirm('Delete this recipe?')) return;
-  recipes = recipes.filter(r => r.id !== id);
+  recipes = recipes.filter(function(r) { return r.id !== id; });
   storageSet('cogs_recipes', recipes);
   renderRecipes();
 }
 
-function toggleRecipe(id) {
-  document.getElementById('rc-' + id).classList.toggle('open');
-}
-
 function renderRecipes() {
-  const el = document.getElementById('recipe-list');
-  if (recipes.length === 0) {
-    el.innerHTML = '<div class="empty">No recipes saved yet.</div>'; return;
-  }
-  const totalCOGS = recipes.reduce((s, r) => s + r.total, 0);
-  let html = '<div class="metric-grid">' +
+  var el = document.getElementById('recipe-list');
+  if (recipes.length === 0) { el.innerHTML = '<div class="empty">No recipes saved yet.</div>'; return; }
+
+  var totalCOGS = 0;
+  for (var i = 0; i < recipes.length; i++) totalCOGS += recipes[i].total;
+
+  var html = '<div class="metric-grid">' +
     '<div class="metric"><div class="metric-label">Recipes</div><div class="metric-value">' + recipes.length + '</div></div>' +
     '<div class="metric"><div class="metric-label">Total COGS</div><div class="metric-value">$' + totalCOGS.toFixed(2) + '</div></div>' +
     '<div class="metric"><div class="metric-label">Avg cost</div><div class="metric-value">$' + (totalCOGS / recipes.length).toFixed(2) + '</div></div>' +
   '</div>';
 
-  html += recipes.map(r =>
-    '<div class="recipe-card" id="rc-' + r.id + '">' +
-      '<div class="recipe-card-header" onclick="toggleRecipe(' + r.id + ')">' +
-        '<div style="flex:1;min-width:0;">' +
+  html += recipes.map(function(r) {
+    return '<div class="recipe-card" id="rc-' + r.id + '">' +
+      '<div class="recipe-card-header">' +
+        '<div class="recipe-title-block" data-action="toggle-recipe" data-id="' + r.id + '">' +
           '<div class="recipe-title">' + escHtml(r.name) + '</div>' +
           '<div class="recipe-meta">' + r.servings + ' serving' + (r.servings !== 1 ? 's' : '') +
             ' &nbsp;|&nbsp; $' + r.costPerServing.toFixed(4) + '/serving</div>' +
         '</div>' +
-        '<button class="btn-danger" onclick="deleteRecipe(' + r.id + ', event)" style="margin-right:4px;">Delete</button>' +
-        '<span class="recipe-arrow">v</span>' +
+        '<button class="btn-danger" data-action="delete-recipe" data-id="' + r.id + '" style="margin-right:4px;">Delete</button>' +
+        '<span class="recipe-arrow" data-action="toggle-recipe" data-id="' + r.id + '">v</span>' +
       '</div>' +
       '<div class="recipe-detail">' +
         '<table class="ri-table">' +
@@ -685,14 +640,14 @@ function renderRecipes() {
             '<th class="col-del"></th>' +
           '</tr></thead>' +
           '<tbody>' +
-            r.ingredients.map(i =>
-              '<tr>' +
-                '<td class="col-name">' + escHtml(i.name) + '</td>' +
-                '<td class="col-amt">' + i.qty + ' ' + i.unit + '</td>' +
-                '<td class="col-cost">$' + i.cost.toFixed(4) + '</td>' +
+            r.ingredients.map(function(ing) {
+              return '<tr>' +
+                '<td class="col-name">' + escHtml(ing.name) + '</td>' +
+                '<td class="col-amt">'  + ing.qty + ' ' + ing.unit + '</td>' +
+                '<td class="col-cost">$' + ing.cost.toFixed(4) + '</td>' +
                 '<td class="col-del"></td>' +
-              '</tr>'
-            ).join('') +
+              '</tr>';
+            }).join('') +
           '</tbody>' +
         '</table>' +
         '<div class="total-bar">' +
@@ -700,20 +655,67 @@ function renderRecipes() {
           '<span class="total-value">$' + r.total.toFixed(4) + '</span>' +
         '</div>' +
       '</div>' +
-    '</div>'
-  ).join('');
+    '</div>';
+  }).join('');
 
   el.innerHTML = html;
 }
 
 // ── Utility ───────────────────────────────────────────────────────────────────
 function escHtml(str) {
-  return String(str)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-loadData();
+function findIngById(id) {
+  for (var i = 0; i < ingredients.length; i++) { if (ingredients[i].id === id) return ingredients[i]; }
+  return null;
+}
+
+// ── Wire up all events once, on stable elements only ─────────────────────────
+document.getElementById('ing-cat').addEventListener('change', updateIngUnitOptions);
+document.getElementById('rb-ing').addEventListener('change', onRecipeIngChange);
+document.getElementById('rb-qty').addEventListener('input', updateConvertHint);
+document.getElementById('rb-unit').addEventListener('change', updateConvertHint);
+document.getElementById('btn-add-ingredient').addEventListener('click', addIngredient);
+document.getElementById('btn-open-builder').addEventListener('click', openRecipeBuilder);
+document.getElementById('btn-add-to-recipe').addEventListener('click', addToRecipe);
+document.getElementById('btn-save-recipe').addEventListener('click', saveRecipe);
+
+document.querySelector('.tabs').addEventListener('click', function(e) {
+  var tab = e.target.closest('[data-tab]');
+  if (tab) switchTab(tab.dataset.tab);
+});
+
+// Delegated: ingredient list remove buttons
+document.getElementById('ing-list').addEventListener('click', function(e) {
+  var btn = e.target.closest('[data-action="delete-ingredient"]');
+  if (btn) deleteIngredient(Number(btn.dataset.id));
+});
+
+// Delegated: recipe builder remove buttons
+document.getElementById('rb-ing-list').addEventListener('click', function(e) {
+  var btn = e.target.closest('[data-action="remove-from-recipe"]');
+  if (btn) removeFromRecipe(Number(btn.dataset.idx));
+});
+
+// Delegated: recipe list — toggle and delete
+document.getElementById('recipe-list').addEventListener('click', function(e) {
+  var delBtn = e.target.closest('[data-action="delete-recipe"]');
+  if (delBtn) { deleteRecipe(Number(delBtn.dataset.id)); return; }
+  var togEl = e.target.closest('[data-action="toggle-recipe"]');
+  if (togEl) {
+    var card = document.getElementById('rc-' + togEl.dataset.id);
+    if (card) card.classList.toggle('open');
+  }
+});
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+ingredients = storageGet('cogs_ingredients') || [];
+recipes     = storageGet('cogs_recipes')     || [];
+updateIngUnitOptions();
+renderIngredients();
+renderRecipes();
+populateIngSelect();
 </script>
 </body>
 </html>
